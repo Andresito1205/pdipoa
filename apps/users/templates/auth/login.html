@@ -1,0 +1,63 @@
+{% extends "base/container.html" %}
+{% load static %}
+	{% block topmenu %}
+		
+	{% endblock topmenu %}
+    
+
+	{% block content %}
+	<div class="card">
+		<div class="card-header">
+			<h3>Ingresar</h3>
+			{% if form.errors %}
+				<div class="alert alert-danger" role="alert">
+					Tu nombre de usuario y contraseña no se encontraron. Por favor intenta de nuevo.
+				</div>
+			{% endif %}
+
+			{% if next %}
+				{% if user.is_authenticated %}
+					<div class="alert alert-danger" role="alert">
+						Tu cuenta no tiene acceso a esta página. Por favor pide los permisos necesarios al administrador para iniciar sesión con otra cuenta.
+					</div>
+				{% else %}
+					<div class="alert alert-danger" role="alert">
+						Por favor inicie sesión para mirar esta página.
+					</div>
+				{% endif %}
+			{% endif %}
+		</div>
+		<div class="card-body">
+			<form method="post" action="{% url 'users:login' %}">
+				{% csrf_token %}
+				<div class="mb-3">
+					<input class="form-control" type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username" placeholder="Nombre de usuario">
+				</div>
+				<div class="mb-3">
+					<input class="form-control" type="password" name="password" autocomplete="current-password" required="" id="id_password" placeholder="contraseña">
+				</div>
+				<input type="hidden" name="next" value="{{ next }}">
+				<div class="mb-3">
+					<div class="col-md-12">
+						<input class="btn btn-primary" style="width: 100%;" type="submit" value="Login">
+					</div>
+					<div class="col-md-8">
+						<p><a href="{% url 'users:password_reset' %}">Perdió su contraseña?</a></p>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<br>
+	<div class="row m-5 align-items-center">
+		<div class="col-sm-9">
+			<div class="container">
+				<h1>Universidad Privada San Francisco de Asís</h1>
+				<p>Sistema de formulación para Plan de Desarrollo Institucional</p>
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<img src="{% static "logo.png" %}" width="200" alt="">
+		</div>
+	</div>
+	{% endblock content %}

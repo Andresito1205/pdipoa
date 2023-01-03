@@ -1,0 +1,44 @@
+{% extends 'base/list.html' %}
+{% load crispy_forms_tags %}
+    {% block nombre %}
+      <h1 class="text-center">Lista de Objetivos Estrategicos</h1>
+      <a class="btn btn-primary" href='{% url 'ppoa:oestrategico_create' view.kwargs.pk %}'>Crear Objetivo Estrategico</a>
+      <div class="alert alert-info" role="alert">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'ppoa:area_list' %}">Área</a></li>
+            <li class="breadcrumb-item active"><a href="{% url 'ppoa:estrategia_list' object_extra.area_id %}">Estrategia</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Objetivos Estratégicos</li>
+          </ol>
+        </nav>
+      </div>
+    {% endblock nombre %}
+    {% block body_list %}
+    <form method="GET" action="" class="pb-3">
+      {{form}}
+      <button type="submit" class="no-show">Enviar</button>
+    </form>
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Objetivo</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody> 
+            {% for object in object_list %}
+                  <tr>
+                      <th scope="row">{{ object.id }}</th>
+                      <td>{{ object.objetivo }}</td>
+                      <td>
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <a type="button" class="btn btn-primary" href="{% url 'ppoa:oestrategico_update' object.id %}">Actualizar</a>
+                            <a type="button" class="btn btn-primary" href="{% url 'ppoa:perspectiva_list' object.id %}">Perspectivas</a>
+                          </div>
+                      </td>
+                  </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+    {% endblock body_list %}

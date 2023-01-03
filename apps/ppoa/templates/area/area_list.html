@@ -1,0 +1,40 @@
+{% extends 'base/list.html' %}
+{% load crispy_forms_tags %}
+    {% block nombre %}
+      <h1 class="text-center">Lista de Áreas</h1>
+      <a class="btn btn-primary" href='{% url 'ppoa:area_create' %}'>Crear Área</a>
+      <div class="alert alert-info" role="alert">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Área</li>
+          </ol>
+        </nav>
+      </div>
+    {% endblock nombre %}
+    {% block body_list %}
+    <form method="GET" action="" class="pb-3">
+      {{form}}
+      <button type="submit" class="no-show">Enviar</button>
+    </form>
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Área</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody> 
+            {% for object in object_list %}
+                  <tr>
+                      <th scope="row">{{ object.id }}</th>
+                      <td>{{ object.nombre }}</td>
+                      <td>
+                        <a type="button" class="btn btn-primary" href="{% url 'ppoa:area_update' object.id %}">Actualizar</a>
+                        <a type="button" class="btn btn-primary" href="{% url 'ppoa:estrategia_list' object.id %}">Estrategias</a>
+                      </td>
+                  </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+    {% endblock body_list %}

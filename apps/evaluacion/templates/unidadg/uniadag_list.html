@@ -1,0 +1,72 @@
+{% extends 'base/list.html' %}
+{% load crispy_forms_tags %}
+    {% block nombre %}
+      <h1 class="text-center">Lista de Unidades Para la Evaluación</h1>
+      
+      <div class="alert alert-success" role="alert">
+        <strong>Evaluación General:</strong> {{ gestion.media_gestion }}
+      </div>
+    {% endblock nombre %}
+    {% block body_list %}
+    <form method="GET" action="" class="pb-3">
+      {{form}}
+      <button type="submit" class="no-show">Enviar</button>
+    </form>
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Unidad</th>
+              <th scope="col">Media</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody> 
+            {% for object in object_list %}
+                  <tr>
+                      <th scope="row">{{ object.id }}</th>
+                      <td>{{ object.unidad.nombre }}</td>
+                      <td>{{ object.media_inicitica }}%</td>
+                      <td>
+                        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{ object.id }}" aria-expanded="false" aria-controls="collapseExample">
+                            Iniciativa
+                        </button>
+                      </td>
+                  </tr>
+                  <tr>
+                    <td colspan="4">
+                        <div class="collapse" id="collapseExample{{ object.id }}">
+                            <h3 class="text-center">Iniciativa</h3>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                      <th scope="col">#</th>
+                                      <th scope="col">Iniciativa</th>
+                                      <th scope="col">Indicadores</th>
+                                      <th scope="col">Evaluación</th>
+                                      <th scope="col">Opciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for ini in object.iniciativa_set.all %}
+                                        <tr>
+                                            <td>{{ ini.id }}</td>
+                                            <td>{{ ini.iniciativa }}</td>
+                                            <td>{{ ini.i_indices }}</td>
+                                            <td>{{ ini.porcentaje }}%</td>
+                                            <td>
+                                                <a class="btn btn-primary" type="button" href="{% url 'evaluacion:iniciativae' ini.id %}">
+                                                    Evaluar
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                  </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+    {% endblock body_list %}

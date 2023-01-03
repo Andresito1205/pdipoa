@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Reporte</title>
+		<style type="text/css">
+			@page portrait {
+				size: letter portrait;
+				background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("/static/logo.png") no-repeat;
+				background-attachment: fixed;
+				background-position: center center;
+				@top-right{
+					font-style: italic;
+					font-weight: bold;
+					content: "Gestion {{ object.gestion }}";
+				}
+				@top-center {
+					background: #fbc847;
+					content: '';
+					display: block;
+					height: .05cm;
+					opacity: .5;
+					width: 100%;
+					margin: 1px;
+				}
+				@top-left{
+					font-style: italic;
+					font-weight: bold;
+					content: "{% now 'd-m-Y H:i' %}";
+				}
+				@bottom-left {
+					content: "Pagina " counter(page) " de " counter(pages);
+					font-style: bold;
+				}
+			}
+			@page landscape {
+				size: letter landscape;
+				@top-right{
+					font-style: italic;
+					font-weight: bold;
+					content: "Gestion {{ object.gestion }}";
+				}
+				@top-center {
+					background: #fbc847;
+					content: '';
+					display: block;
+					height: .05cm;
+					opacity: .5;
+					width: 100%;
+					margin: 1px;
+				}
+				@top-left{
+					font-style: italic;
+					font-weight: bold;
+					content: "{% now 'd-m-Y H:i' %}";
+				}
+				@bottom-left {
+					content: "Pagina " counter(page) " de " counter(pages);
+					font-style: bold;
+				}
+			}
+			.portrait{
+				page: portrait;
+			}
+			.landscape{
+				page: landscape;
+			}
+			.text-center{
+				text-align: center;
+			}
+			.break-page{
+				page-break-before: always;
+			}
+			.table-border .border{
+				border: black 1px solid;
+			}
+			.table-border{
+				border-collapse: collapse;
+			}
+			.all-width{
+				width:100%;
+			}
+			.tittle{
+				background:#00ACEE;
+			}
+        </style>
+    </head>
+    <body>
+        <div class="portrait">
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+            <h1 class="text-center">Evaluación al Plan Operativo Anual</h1>
+            <h3 class="text-center">{{object.gestion}}</h3>
+        </div>
+		<div class="landscape">
+			{% for u in object.unidadgestion_set.all %}
+			<h2 class="text-center">Evaluación Al Plan Operativo Anual</h2>
+            <h4>Evaluación General {{ object.media_gestion }}%</h4>
+			<table class="table-border all-width">
+				<thead>
+					
+					<tr class="tittle">
+						<th class="border">Área</th>
+						<td class="border">{{ u.area }}</td>
+					</tr>
+					<tr>
+						<th class="border">Nombre</th>
+						<td class="border">{{ u.unidad }}</td>
+					</tr>
+					<tr>
+						<th class="border">Grado de cumplimiento</th>
+						<td class="border">{{ u.media_inicitica }}%</td>
+					</tr>
+					
+                </thead>
+			</table>
+			<table class="table-border all-width">
+                <tbody class="table-border all-width">
+                    
+						<tr> 
+							<th class="border">Iniciativa</th>
+							<th class="border">Indicador</th>
+							<th class="border">Grado de cumplimiento</th>
+							<th class="border">Observaciones y Justificación</th>
+						</tr>
+						{% for ini in u.iniciativa_set.all %}
+                        <tr id="collapseExample{{ u.id }}">
+                            
+								<td class="border">{{ ini.iniciativa }}</td>
+								<td class="border">{{ ini.i_indices }}</td>
+								<td class="border">{{ ini.porcentaje }}%</td>
+								<td class="border" style="{% if not ini.observacion %} color:red; {% endif %}">
+									{{ ini.observacion }}
+								</td>
+                        </tr>
+						{% endfor %}
+                </tbody>
+            </table>
+					{% if not forloop.last %}
+						<div class="break-page"></div>
+					{% endif %}
+				{% endfor %}
+		</div>
+    </body>
+</html>

@@ -1,0 +1,40 @@
+{% extends 'base/list.html' %}
+{% load crispy_forms_tags %}
+    {% block nombre %}
+      <h1 class="text-center">Lista de Gestiones</h1>
+    {% endblock nombre %}
+    {% block body_list %}
+      <form method="GET" action="" class="pb-3">
+        {{form}}
+        <button type="submit" class="no-show">Enviar</button>
+      </form>
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Gestión</th>
+              <th scope="col">Activo</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody> 
+            {% for object in object_list %}
+                  <tr>
+                      <th scope="row">{{ object.id }}</th>
+                      <td>{{ object.gestion }}</td>
+                      <td>
+                        {% if object.activa %}
+                          <span class="badge bg-primary">Activo</span>
+                        {% else %}
+                          <span class="badge bg-danger">Inactivo</span>
+                        {% endif %}
+                      </td>
+                      <td>
+                          <a type="button" class="btn btn-primary" href="">Actualizar</a>
+                          <a type="button" class="btn btn-danger" href="">borrar</a>
+                      </td>
+                  </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+    {% endblock body_list %}

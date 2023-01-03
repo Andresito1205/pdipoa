@@ -1,0 +1,10 @@
+{% extends 'base/container.html' %}
+{% load static %}
+    {% block content %}
+        <div class="container">
+            <h3>Dirección de Desarrollo de la Universidad Privada San Francisco de Asís</h3>
+            <p>Sistema de Formulación del Plan De Desarrollo</p>
+            <p>{{ user.asignacion.paso }}</p>
+            <img src="{% static "logo.png" %}" width="1000px" alt="" class="mx-auto d-block" />
+        </div>
+    {% endblock content %}

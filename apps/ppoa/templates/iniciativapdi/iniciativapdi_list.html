@@ -1,0 +1,43 @@
+{% extends 'base/list.html' %}
+{% load crispy_forms_tags %}
+    {% block nombre %}
+      <h1 class="text-center">Lista de Iniciativas PDI</h1>
+      <a class="btn btn-primary" href='{% url 'ppoa:iniciativapdi_create' view.kwargs.pk %}'>Crear Iniciativa PDI</a>
+      <div class="alert alert-info" role="alert">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'ppoa:area_list' %}">Área</a></li>
+            <li class="breadcrumb-item active"><a href="{% url 'ppoa:estrategia_list' object_extra.objetivoestrategico.estrategia.area_id %}">Estrategia</a></li>
+            <li class="breadcrumb-item active"><a href="{% url 'ppoa:oestrategico_list' object_extra.objetivoestrategico.estrategia_id %}">Objetivos Estratégicos</a></li>
+            <li class="breadcrumb-item active"><a href="{% url 'ppoa:perspectiva_list' object_extra.objetivoestrategico_id %}">Perspectiva</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Iniciativas</li>
+          </ol>
+        </nav>
+      </div>
+    {% endblock nombre %}
+    {% block body_list %}
+    <form method="GET" action="" class="pb-3">
+      {{form}}
+      <button type="submit" class="no-show">Enviar</button>
+    </form>
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Iniciativa</th>
+              <th scope="col">Opciones</th>
+            </tr>
+          </thead>
+          <tbody> 
+            {% for object in object_list %}
+                  <tr>
+                      <th scope="row">{{ object.id }}</th>
+                      <td>{{ object.iniciativa }}</td>
+                      <td>
+                        <a type="button" class="btn btn-primary" href="{% url 'ppoa:iniciativapdi_update' object.id %}">Actualizar</a>
+                      </td>
+                  </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+    {% endblock body_list %}

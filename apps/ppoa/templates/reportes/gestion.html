@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Reporte</title>
+		<style type="text/css">
+			@page portrait {
+				size: letter portrait;
+				background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("/static/logo.png") no-repeat;
+				background-attachment: fixed;
+				background-position: center center;
+				@top-right{
+					font-style: italic;
+					font-weight: bold;
+					content: "Gestion {{ object.gestion }}";
+				}
+				@top-center {
+					background: #fbc847;
+					content: '';
+					display: block;
+					height: .05cm;
+					opacity: .5;
+					width: 100%;
+					margin: 1px;
+				}
+				@top-left{
+					font-style: italic;
+					font-weight: bold;
+					content: "{% now 'd-m-Y H:i' %}";
+				}
+				@bottom-left {
+					content: "Pagina " counter(page) " de " counter(pages);
+					font-style: bold;
+				}
+			}
+			@page landscape {
+				size: letter landscape;
+				@top-right{
+					font-style: italic;
+					font-weight: bold;
+					content: "Gestion {{ object.gestion }}";
+				}
+				@top-center {
+					background: #fbc847;
+					content: '';
+					display: block;
+					height: .05cm;
+					opacity: .5;
+					width: 100%;
+					margin: 1px;
+				}
+				@top-left{
+					font-style: italic;
+					font-weight: bold;
+					content: "{% now 'd-m-Y H:i' %}";
+				}
+				@bottom-left {
+					content: "Pagina " counter(page) " de " counter(pages);
+					font-style: bold;
+				}
+			}
+			.portrait{
+				page: portrait;
+			}
+			.landscape{
+				page: landscape;
+			}
+			.text-center{
+				text-align: center;
+			}
+			.break-page{
+				page-break-before: always;
+			}
+			.table-border .border{
+				border: black 1px solid;
+			}
+			.table-border{
+				border-collapse: collapse;
+			}
+			.all-width{
+				width:100%;
+			}
+			.tittle{
+				background:#00ACEE;
+			}
+        </style>
+    </head>
+    <body>
+        <div class="portrait">
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+            <h1 class="text-center">Plan Operativo Anual</h1>
+            <h3 class="text-center">{{object.gestion}}</h3>
+        </div>
+		<div class="landscape">
+			<h2 class="text-center">POA (Plan Operativo Anual)</h2>
+			{% for u in object.unidadgestion_set.all %}
+				<table class="table-border all-width">
+					<tbody>
+						<tr class="tittle">
+							<th class="border">Nombre: </th>
+							<td class="border">{{ u.unidad }}</td>
+						</tr>
+						<tr>
+							<th class="border">Área: </th>
+							<td class="border">{{ u.area }}</td>
+						</tr>
+						<tr>
+							<th class="border">Estrategia: </th>
+							<td class="border">{{ u.estrategia }}</td>
+						</tr>
+						<tr>
+							<th class="border">Objetivo Estratégico: </th>
+							<td class="border">{{ u.objetivoestrategico }}</td>
+						</tr>
+						<tr>
+							<th class="border">Perspectiva: </th>
+							<td class="border">{{ u.perspectiva }}</td>
+						</tr>
+						<tr>
+							<th class="border">Iniciativa PDI: </th>
+							<td class="border">{{ u.iniciativapdi }}</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<table class="table-border all-width">
+					<thead>
+						<th class="border">Iniciativa: </th>
+						<th class="border">Politica</th>
+						<th class="border">R. Operativo</th>
+						<th class="border">Indicadores</th>
+						<th class="border">Resultados</th>
+						<th class="border">Condicionantes</th>
+						<th class="border">F. Inicio</th>
+						<th class="border">F. Fin</th>
+					</thead>
+					<tbody>
+						{% for i in u.iniciativa_set.all %}
+							<tr>
+								<td class="border">{{ i.iniciativa }}</td>
+								<td class="border">{{ i.get_actividad_display }}</td>
+								<td class="border">{{ i.r_operativo }}</td>
+								<td class="border">{{ i.i_indices }}</td>
+								<td class="border">{{ i.resultados }}</td>
+								<td class="border">{{ i.condicionantes }}</td>
+								<td class="border">{{ i.f_inicio|date:"d/m/Y" }}</td>
+								<td class="border">{{ i.f_fin|date:"d/m/Y" }}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+				
+				
+				{% if not forloop.last %}
+					<div class="break-page"></div>
+				{% endif %}
+			{% endfor %}
+		</div>
+    </body>
+</html>
