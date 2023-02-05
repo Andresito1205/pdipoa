@@ -15,7 +15,7 @@
       <table class="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              
               <th scope="col">Unidad</th>
               <th scope="col">Media</th>
               <th scope="col">Opciones</th>
@@ -24,7 +24,7 @@
           <tbody> 
             {% for object in object_list %}
                   <tr>
-                      <th scope="row">{{ object.id }}</th>
+                      
                       <td>{{ object.unidad.nombre }}</td>
                       <td>{{ object.media_inicitica }}%</td>
                       <td>
@@ -40,7 +40,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                      <th scope="col">#</th>
+                                      
                                       <th scope="col">Iniciativa</th>
                                       <th scope="col">Indicadores</th>
                                       <th scope="col">Evaluación</th>
@@ -50,7 +50,7 @@
                                 <tbody>
                                     {% for ini in object.iniciativa_set.all %}
                                         <tr>
-                                            <td>{{ ini.id }}</td>
+                                            
                                             <td>{{ ini.iniciativa }}</td>
                                             <td>{{ ini.i_indices }}</td>
                                             <td>{{ ini.porcentaje }}%</td>

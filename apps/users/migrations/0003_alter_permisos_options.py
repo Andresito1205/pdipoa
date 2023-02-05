@@ -12,6 +12,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='permisos',
-            options={'permissions': (('users', 'Permiso al modulo de usuarios'), ('gestion', 'Permiso al Modulo de gestion'), ('ppoa', 'Permiso al Modeulo de Planificaion del POA'))},
+            options={'permissions': (('users', 'Permiso al Módulo de Usuarios'), ('gestion', 'Permiso al Módulo de Gestión'), ('ppoa', 'Permiso al Módulo de Plan Operativo Anual'))},
         ),
     ]

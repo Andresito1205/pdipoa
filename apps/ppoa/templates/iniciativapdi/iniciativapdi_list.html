@@ -23,7 +23,7 @@
       <table class="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              
               <th scope="col">Iniciativa</th>
               <th scope="col">Opciones</th>
             </tr>
@@ -31,7 +31,7 @@
           <tbody> 
             {% for object in object_list %}
                   <tr>
-                      <th scope="row">{{ object.id }}</th>
+                      
                       <td>{{ object.iniciativa }}</td>
                       <td>
                         <a type="button" class="btn btn-primary" href="{% url 'ppoa:iniciativapdi_update' object.id %}">Actualizar</a>

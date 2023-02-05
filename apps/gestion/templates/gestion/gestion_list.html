@@ -11,7 +11,7 @@
       <table class="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
+              
               <th scope="col">Gestión</th>
               <th scope="col">Activo</th>
               <th scope="col">Opciones</th>
@@ -20,7 +20,7 @@
           <tbody> 
             {% for object in object_list %}
                   <tr>
-                      <th scope="row">{{ object.id }}</th>
+                      
                       <td>{{ object.gestion }}</td>
                       <td>
                         {% if object.activa %}
@@ -30,8 +30,8 @@
                         {% endif %}
                       </td>
                       <td>
-                          <a type="button" class="btn btn-primary" href="">Actualizar</a>
-                          <a type="button" class="btn btn-danger" href="">borrar</a>
+                          <a type="button" class="btn btn-primary" href="{% url 'gestion:gestion_update' object.id %}">Actualizar</a>
+                          <!–<a type="button" class="btn btn-danger" href="{% url 'gestion:gestion_delete' object.id %}"><!–borrar</a>
                       </td>
                   </tr>
             {% endfor %}

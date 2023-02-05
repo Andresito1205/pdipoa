@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Reporte</title>
+		<style type="text/css">
+			@page portrait {
+				size: letter portrait;
+				background: linear-gradient(rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("/static/logo.png") no-repeat;
+				background-attachment: fixed;
+				background-position: center center;
+				@top-right{
+					font-style: italic;
+					font-weight: bold;
+					content: "Gestión {{ object.gestion }}";
+				}
+				@top-center {
+					background: #fbc847;
+					content: '';
+					display: block;
+					height: .05cm;
+					opacity: .5;
+					width: 100%;
+					margin: 1px;
+				}
+				@top-left{
+					font-style: italic;
+					font-weight: bold;
+					content: "{% now 'd-m-Y H:i' %}";
+				}
+				@bottom-left {
+					content: "Pagina " counter(page) " de " counter(pages);
+					font-style: bold;
+				}
+			}
+			@page landscape {
+				size: letter landscape;
+				@top-right{
+					font-style: italic;
+					font-weight: bold;
+					content: "Gestión {{ object.gestion }}";
+				}
+				@top-center {
+					background: #fbc847;
+					content: '';
+					display: block;
+					height: .05cm;
+					opacity: .5;
+					width: 100%;
+					margin: 1px;
+				}
+				@top-left{
+					font-style: italic;
+					font-weight: bold;
+					content: "{% now 'd-m-Y H:i' %}";
+				}
+				@bottom-left {
+					content: "Pagina " counter(page) " de " counter(pages);
+					font-style: bold;
+				}
+			}
+			.portrait{
+				page: portrait;
+			}
+			.landscape{
+				page: landscape;
+			}
+			.text-center{
+				text-align: center;
+			}
+			.text-izquirda {
+				text-align: left; 
+			}
+			.break-page{
+				page-break-before: always;
+			}
+			.table-border .border{
+				border: black 1px solid;
+			}
+			.table-border{
+				border-collapse: collapse;
+			}
+			.all-width{
+				width:100%;
+			}
+			.tittle{
+				background:#00ACEE;
+			}
+			.subtitulo { 
+				background: #00e2ee; 
+			}
+			table th {
+				text-align: center;
+			  }
+			table td {
+				text-align: center;
+			}
+			table td {
+				text-align: center;
+			}
+        </style>
+    </head>
+    <body>
+        <div class="portrait">
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+            <h1 class="text-center">Plan de Desarrollo Institucional</h1>
+            
+        </div>
+		<div class="landscape">
+			<h2 class="text-center">Plan de Desarrollo Institucional</h2>
+		{% for are in object.area_set.all %}
+				<table class="table-border all-width">
+				
+				
+					<tbody>
+						
+						<tr class="tittle">
+							
+							<th class="border">ESTRATÉGIAS GENERALES: {{ are.nombre }} </th>
+
+						</tr>
+						
+						</tr>
+						{% for est in are.estrategia_set.all %}
+							
+						<tr class="border">
+							<td class="text-izquirda">{{ est.codigo_foda }}</td>
+							
+						</tr>
+						<tr class="border">	
+							<td class="text-izquirda">{{ est.estrategia }}</td>
+							
+						</tr>	
+						<tr class="border">
+							<td class="text-izquirda">{{ est.descripcion }}</td>
+						</tr>
+							
+						{% endfor %}
+
+
+					</tbody>
+					
+				</table>
+
+				
+					<div class="break-page"></div>
+				
+
+				<table class="table-border all-width">
+					
+					
+						<tbody>
+							
+							<tr class="tittle">
+								
+								<th class="border">OBJETIVOS ESTRATÉGICOS ESPECÍFICOS: {{ are.nombre }} </th>
+								
+							</tr>
+							
+							
+							
+							{% for est in are.estrategia_set.all %}
+								
+							<tr class="subtitulo">
+								<td class="text-izquirda" >Estrategia: {{ est.codigo_foda }} {{ est.estrategia }} {{est.descripcion }}</td>
+								
+							</tr>
+							{% for esto in est.objetivoestrategico_set.all %}
+							<tr class="border">	
+								
+								<td class="text-izquirda">{{ esto.objetivo }}</td>
+								
+							</tr>
+							{% endfor %}
+							
+								
+							{% endfor %}
+	
+						</tbody>
+						
+						
+					</table>
+
+					
+						<div class="break-page"></div>
+					
+
+					<table class="table-border all-width">
+						
+						
+							<tbody>
+								
+								<tr class="tittle">
+
+									<th class="border">PERSPECTIVA </th>
+									<th class="border">OBJETIVOS ESTRATÉGICOS ESPECÍFICOS </th>
+									<th class="border">{{ are.nombre }} </th>
+									
+								</tr>
+
+								{% for est in are.estrategia_set.all %}
+								{% for esto in est.objetivoestrategico_set.all %}
+								{% for pers in esto.perspectiva_set.all %}
+
+								<tr>
+									<th class="border">{{ pers.perspectiva }}</th>
+									
+									<th class="border">{{ pers.codigo }}</th>
+								
+										
+									<th class="border">{{ pers.objetivo }}</th>
+								</tr>	
+														
+								{% endfor %}
+								{% endfor %}
+								{% endfor %}
+								
+
+							</tbody>
+							
+
+						</table>
+
+						
+							<div class="break-page"></div>
+						
+						
+						<table class="table-border all-width">
+							
+							
+								<tbody>
+									
+									<tr class="tittle">
+	
+										<th class="border">PERSPECTIVA </th>
+										<th class="border">OBJETIVOS ESTRATÉGICOS ESPECÍFICOS </th>
+										<th class="border">{{ are.nombre }} </th>
+										<th class="border">INICIATIVA </th>
+										<th class="border">AREA FUNCIONAL RESPONSABLE </th>
+										
+									</tr>
+	
+									{% for est in are.estrategia_set.all %}
+									{% for esto in est.objetivoestrategico_set.all %}
+									{% for pers in esto.perspectiva_set.all %}
+									{% for inic in pers.iniciativapdi_set.all %}
+	
+									<tr>
+										<th class="border">{{ pers.perspectiva }}</th>
+										<th class="border">{{ pers.codigo }}</th>
+										<th class="border">{{ pers.objetivo }}</th>
+										<th class="border">{{ inic.iniciativa }}</th>
+										<th class="border">{{ are.nombre }}</th>
+
+
+									</tr>	
+
+									{% endfor %}
+									{% endfor %}
+									{% endfor %}
+									{% endfor %}
+	
+								</tbody>
+								
+								
+							</table>
+							{% if not forloop.last %}
+								<div class="break-page"></div>
+							{% endif %}
+						
+		{% endfor %}
+		
+		</div>
+		
+    </body>
+</html>
+

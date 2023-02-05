@@ -382,3 +382,12 @@ class ReporteGestionDetailView(DetailView):
 
 class PDFReporteGestionDetailView(WeasyTemplateResponseMixin, ReporteGestionDetailView):
     pass
+
+class ReportePdiDetailView(DetailView):
+    model = apps.get_model('gestion','Gestion')
+    template_name = 'reportes/pdi.html'
+    def get_object(self, queryset=None):
+        return self.model.objects.get(gestion=config.GESTION_ACTIVA)
+
+class PDFReportePdiDetailView(WeasyTemplateResponseMixin, ReportePdiDetailView):
+    pass

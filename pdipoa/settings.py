@@ -89,7 +89,7 @@ WSGI_APPLICATION = 'pdipoa.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'poa',
+        'NAME': 'oficialbase',
         'USER': 'root',
         'PASSWORD': 'root',
         'PORT': '3306',

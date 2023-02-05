@@ -47,5 +47,6 @@ urlpatterns = [
     path('iniciativacreate/<int:pk>/', permission_required('users.ppoa')(login_required(UnidadIniciativaCreateView.as_view())), name='iniciativa_create'),
     path('iniciativaupdate/<int:pk>/', permission_required('users.ppoa')(login_required(UnidadIniciativaUpdateView.as_view())), name='iniciativa_update'),
 
-    path('reportegestion/', permission_required('users.ppoa')(login_required(PDFReporteGestionDetailView.as_view())), name='reporte_gestion')
+    path('reportegestion/', permission_required('users.ppoa')(login_required(PDFReporteGestionDetailView.as_view())), name='reporte_gestion'),
+    path('Reportepdi/', permission_required('users.ppoa')(login_required(PDFReportePdiDetailView.as_view())), name='reporte_pdi')
 ]

@@ -82,8 +82,8 @@ class IniciativaPDI(models.Model):
 
 class UnidadGestion(models.Model):
     gestion = models.ForeignKey('gestion.Gestion', on_delete=models.CASCADE)
-    unidad = models.OneToOneField('gestion.Unidad', on_delete=models.CASCADE)
-    area = models.OneToOneField('ppoa.Area', on_delete=models.CASCADE)
+    unidad = models.ForeignKey('gestion.Unidad', on_delete=models.CASCADE)
+    area = models.ForeignKey('ppoa.Area', on_delete=models.CASCADE)
     estrategia = ChainedForeignKey(
 		'ppoa.Estrategia',
 		chained_field='area',
